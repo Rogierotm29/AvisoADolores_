@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a0bc2741884e241a35bbe47a163f53, type: 3}
+  m_Name: Section3_Dolores
+  m_EditorClassIdentifier: Assembly-CSharp::SectionData
+  sectionName: Dolores
+  hint: Ultima recta
+  duration: 45
+  startSpeed: 11
+  endSpeed: 13
+  minSpawnInterval: 0.9
+  maxSpawnInterval: 1.2
+  chunks:
+  - {fileID: 3634996231861332326, guid: 7b21d74a953983e42bacbb9a625a509c, type: 3}
+  - {fileID: 3634996231861332326, guid: 052588aa1fe52b243a38e7e39bfd39be, type: 3}
+  - {fileID: 3634996231861332326, guid: 71956e5d20a70be4ea8e39bf442a9d66, type: 3}
+  - {fileID: 3634996231861332326, guid: 9179f7f2273a87f4eb45c56e02f59373, type: 3}
+  - {fileID: 3634996231861332326, guid: 24f219e85ed295b4c9010fa031302c6f, type: 3}
+  - {fileID: 3634996231861332326, guid: 93e60954b29fb6a469871535d946d63f, type: 3}
+  introChunk: {fileID: 0}
+  relayChunk: {fileID: 3440667337554599814, guid: 9d9f656e49b7df643bc76516b2eb3c31, type: 3}
+  relayAt: 0.5
