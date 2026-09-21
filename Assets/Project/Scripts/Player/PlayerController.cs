@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 colliderOffset;
     private Vector3 visualScale;
     private Vector3 visualPosition;
+    private bool isDucked;
 
     private void Awake()
     {
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour
     public void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, config.jumpForce);
+        GameEvents.RaiseJump();
     }
 
     public void CutJump()
@@ -123,6 +125,9 @@ public class PlayerController : MonoBehaviour
 
     public void SetDuck(bool active)
     {
+        if (active && !isDucked) GameEvents.RaiseDuck();
+        isDucked = active;
+
         if (active)
         {
             float h = colliderSize.y * config.duckHeightMultiplier;
@@ -196,7 +201,7 @@ public class PlayerController : MonoBehaviour
         IsInvulnerable = false;
     }
 
-    // ---------- Utilidades ----------
+    // ---------- Utilidades 
 
     private bool CheckGrounded()
     {

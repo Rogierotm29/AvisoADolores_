@@ -2463,6 +2463,7 @@ GameObject:
   - component: {fileID: 819966991}
   - component: {fileID: 819966990}
   - component: {fileID: 819966993}
+  - component: {fileID: 819966994}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2609,6 +2610,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &819966994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819966989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d444b20df3e074db82363c7ad47c46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DynamicsLogger
+  fileName: dynamics_log.csv
 --- !u!1 &856086228
 GameObject:
   m_ObjectHideFlags: 0
