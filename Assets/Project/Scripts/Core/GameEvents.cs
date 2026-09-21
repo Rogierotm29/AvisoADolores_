@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 
 public enum CollectibleType { Horseshoe, Relay }
 
@@ -17,6 +18,11 @@ public static class GameEvents
     public static event Action OnVictory;
     public static event Action OnGameOver;
 
+    //Lo de la actividad de mecanica
+    public static event Action<int, int> OnComboChanged;
+
+    public static event Action<int> OnBonusScore;
+
     public static void RaiseHit() => OnHit?.Invoke();
     public static void RaiseCollect(CollectibleType type) => OnCollect?.Invoke(type);
     public static void RaiseDistanceChanged(float value) => OnDistanceChanged?.Invoke(value);
@@ -26,4 +32,8 @@ public static class GameEvents
     public static void RaiseGameStateChanged(GameStateId state) => OnGameStateChanged?.Invoke(state);
     public static void RaiseVictory() => OnVictory?.Invoke();
     public static void RaiseGameOver() => OnGameOver?.Invoke();
+
+    //Lo de la actividad de mecanica
+    public static void RaiseComboChanged(int combo, int multiplier) => OnComboChanged?.Invoke(combo, multiplier);
+    public static void RaiseBonusScore(int points) => OnBonusScore?.Invoke(points);
 }

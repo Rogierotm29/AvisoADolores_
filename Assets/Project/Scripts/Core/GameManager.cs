@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
         GameEvents.OnSectionChanged += HandleSection;
         GameEvents.OnVictory += HandleVictory;
         GameEvents.OnGameOver += HandleGameOver;
+        GameEvents.OnBonusScore += HandleBonusScore;
     }
 
     private void OnDisable()
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
         GameEvents.OnSectionChanged -= HandleSection;
         GameEvents.OnVictory -= HandleVictory;
         GameEvents.OnGameOver -= HandleGameOver;
+        GameEvents.OnBonusScore -= HandleBonusScore;
     }
 
     private void OnDestroy()
@@ -103,6 +105,13 @@ public class GameManager : MonoBehaviour
         Score += type == CollectibleType.Relay ? config.pointsPerHorseshoe * 5 : config.pointsPerHorseshoe;
         GameEvents.RaiseScoreChanged(Score);
     }
+
+    private void HandleBonusScore(int points)
+    {
+        Score += points;
+        GameEvents.RaiseScoreChanged(Score);
+    }
+
 
     private void HandleSection(int index, string sectionName) => SectionReached = sectionName;
     private void HandleVictory() => Machine.ChangeState(Victory);

@@ -1,8 +1,6 @@
 using UnityEngine;
 
-/// <summary>
-/// Configuración de un tramo del recorrido (Querétaro, San Miguel, Dolores).
-/// </summary>
+
 [CreateAssetMenu(fileName = "SectionData", menuName = "Aviso a Dolores/Section Data")]
 public class SectionData : ScriptableObject
 {

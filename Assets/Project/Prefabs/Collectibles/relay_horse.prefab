@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1087937655381428659}
   - component: {fileID: 8628565984362469230}
   - component: {fileID: 3756844151831392127}
+  - component: {fileID: 3062282792415942286}
   m_Layer: 0
   m_Name: relay_horse
   m_TagString: Untagged
@@ -139,3 +140,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.64, y: 1.55}
   m_EdgeRadius: 0
+--- !u!114 &3062282792415942286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3344745868657819778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a60df567e4006499f1ccd4981248d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collectible
+  type: 1
+  bobHeight: 0.12
+  bobSpeed: 4
