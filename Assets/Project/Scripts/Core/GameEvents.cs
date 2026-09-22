@@ -28,6 +28,9 @@ public static class GameEvents
     public static event Action OnJump;
     public static event Action OnDuck;
 
+    //Estetica
+    public static event Action<int, int, int> OnSurveySubmitted;
+
     public static void RaiseHit() => OnHit?.Invoke();
     public static void RaiseCollect(CollectibleType type) => OnCollect?.Invoke(type);
     public static void RaiseDistanceChanged(float value) => OnDistanceChanged?.Invoke(value);
@@ -45,5 +48,8 @@ public static class GameEvents
     //Lo de la actividad de dinamica
     public static void RaiseJump() => OnJump?.Invoke();
     public static void RaiseDuck() => OnDuck?.Invoke();
+
+    //Estetica
+    public static void RaiseSurveySubmitted(int reto, int tension, int justicia) => OnSurveySubmitted?.Invoke(reto, tension, justicia);
 
 }

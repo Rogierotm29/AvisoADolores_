@@ -8,24 +8,27 @@ public class DynamicsLogger : MonoBehaviour
 {
     [Tooltip("Nombre del archivo que se genera en la carpeta Telemetry, en la raiz del proyecto")]
     [SerializeField] private string fileName = "dynamics_log.csv";
+    [SerializeField] private GameConfig config;
 
     private const string Header =
         "sesion,intento,fecha_hora,resultado,tramo,duracion_s,saltos,agachadas," +
-        "herraduras,relevos,choques,combo_max,puntaje";
+        "herraduras,relevos,choques,combo_max,puntaje,tiempo_peligro_s,pct_peligro";
 
-    private static string sessionId;
-    private static int attempt;
+    public static string SessionId { get; private set; }
+    public static int Attempt { get; private set; }
 
     private int jumps, ducks, horseshoes, relays, hits, maxCombo, score;
     private string section = "";
     private float duration;
+    private float dangerTime;
+    private float currentDistance = 100f;
     private bool written;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
     {
-        sessionId = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        attempt = 0;
+        SessionId = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        Attempt = 0;
     }
 
     private void OnEnable()
@@ -37,6 +40,7 @@ public class DynamicsLogger : MonoBehaviour
         GameEvents.OnComboChanged += HandleCombo;
         GameEvents.OnScoreChanged += HandleScore;
         GameEvents.OnSectionChanged += HandleSection;
+        GameEvents.OnDistanceChanged += HandleDistance;
         GameEvents.OnVictory += HandleVictory;
         GameEvents.OnGameOver += HandleGameOver;
     }
@@ -50,6 +54,7 @@ public class DynamicsLogger : MonoBehaviour
         GameEvents.OnComboChanged -= HandleCombo;
         GameEvents.OnScoreChanged -= HandleScore;
         GameEvents.OnSectionChanged -= HandleSection;
+        GameEvents.OnDistanceChanged -= HandleDistance;
         GameEvents.OnVictory -= HandleVictory;
         GameEvents.OnGameOver -= HandleGameOver;
 
@@ -58,13 +63,16 @@ public class DynamicsLogger : MonoBehaviour
 
     private void Start()
     {
-        if (string.IsNullOrEmpty(sessionId)) ResetStatics();
-        attempt++;
+        if (string.IsNullOrEmpty(SessionId)) ResetStatics();
+        Attempt++;
     }
 
     private void Update()
     {
-        if (SectionManager.IsRunning) duration += Time.deltaTime;
+        if (!SectionManager.IsRunning) return;
+
+        duration += Time.deltaTime;
+        if (currentDistance < config.dangerThreshold) dangerTime += Time.deltaTime;
     }
 
     private void HandleJump() => jumps++;
@@ -72,6 +80,7 @@ public class DynamicsLogger : MonoBehaviour
     private void HandleHit() => hits++;
     private void HandleScore(int value) => score = value;
     private void HandleSection(int index, string name) => section = name;
+    private void HandleDistance(float value) => currentDistance = value;
 
     private void HandleCollect(CollectibleType type)
     {
@@ -92,9 +101,11 @@ public class DynamicsLogger : MonoBehaviour
         if (written) return;
         written = true;
 
+        float dangerPct = duration > 0f ? dangerTime / duration * 100f : 0f;
+
         string row = string.Join(",",
-            sessionId,
-            attempt,
+            SessionId,
+            Attempt,
             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
             result,
             section,
@@ -105,7 +116,9 @@ public class DynamicsLogger : MonoBehaviour
             relays,
             hits,
             maxCombo,
-            score);
+            score,
+            dangerTime.ToString("F1", CultureInfo.InvariantCulture),
+            dangerPct.ToString("F1", CultureInfo.InvariantCulture));
 
         Debug.Log($"[DynamicsLogger] {row}");
 
